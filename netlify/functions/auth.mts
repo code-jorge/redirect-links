@@ -1,9 +1,8 @@
 
-const PASSWORD = process.env.PASSWORD || 'password';
-const TOKEN = process.env.TOKEN
+const PASSWORD = process.env.PASSWORD;
+const TOKEN = process.env.TOKEN;
 
 const auth = async (req: Request)=> {
-  console.log("HERE")
   const { password } = await req.json();
   if (password === PASSWORD) return new Response(TOKEN, { status: 200 });
   return new Response('Unauthorized', { status: 401 });

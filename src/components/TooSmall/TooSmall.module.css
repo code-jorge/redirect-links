@@ -1,0 +1,39 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--color-white);
+  padding: 4rem 1rem;
+}
+
+.content {
+  max-width: max-content;
+  margin: 0 auto;
+}
+
+.errorCode {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.messageContainer {
+  margin-top: 1rem;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.025em;
+}
+
+.description {
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  color: var(--color-gray);
+}
+
+@media (min-width: 400px) {
+  .container {
+    display: none;
+  }
+}

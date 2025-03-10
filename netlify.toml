@@ -1,3 +1,13 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
 [build]
   command = "npm run build"
   publish = "dist"
+
+[template.environment]
+  PASSWORD = "Password to access the admin page"
+  TOKEN = "Secret token to auth requests"

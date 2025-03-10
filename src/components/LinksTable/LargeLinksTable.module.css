@@ -1,0 +1,231 @@
+
+.table {
+  border-color: var(--color-gray-light);
+  min-width: 100%;
+}
+
+.tableHead {
+  background-color: var(--color-white-bg);
+}
+
+.linkCol {
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  padding-right: 0.75rem;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.targetCol {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.creationCol {
+  display: none;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.actionsCol {
+  position: relative;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  padding-left: 0.75rem;
+  padding-right: 1rem;
+}
+
+.tableBody {
+  border-top-width: 1px;
+  border-color: var(--color-white-bg);
+  background-color: var(--color-white);
+}
+
+.row:hover {
+  background-color: var(--color-white-bg);
+}
+
+.linkCell {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 0.75rem;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+
+.linkCellContent {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.linkCellLink {
+  color: var(--color-primary);
+}
+
+.linkCellLink:hover {
+  color: var(--color-primary-dark);
+}
+
+.linkCellCopy {
+  color: var(--color-gray);
+}
+
+.linkCellCopy:hover {
+  color: var(--color-gray-dark);
+}
+
+.successIcon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-success);
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.targetCell {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-gray);
+}
+
+.targetCellInput {
+  border-radius: 0.375rem;
+  border-color: var(--color-gray-light);
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: .25rem .5rem;
+}
+
+.targetCellLink {
+  display: block;
+  max-width: 20rem;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.targetCellLink:hover {
+  color: var(--color-primary-dark);
+}
+
+.creationCell {
+  display: none;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-gray);
+  white-space: nowrap;
+}
+
+.actionsCell {
+  position: relative;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0.75rem;
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.actionEdit {
+  color: var(--color-primary);
+}
+
+.actionEdit:hover {
+  color: var(--color-primary-dark);
+}
+
+.actionCancel {
+  color: var(--color-primary-dark);
+}
+
+.actionCancel:hover {
+  color: var(--color-text);
+}
+
+.actionDelete {
+  color: var(--color-error);
+}
+
+.actionDelete:hover {
+  color: var(--color-error-dark);
+}
+
+@media (max-width: 750px) {
+  .table {
+    display: none;
+  }
+}
+
+@media (min-width: 860px) {
+  .creationCell {
+    display: table-cell;
+  }
+
+  .creationCol {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1024px) {
+  .actionsCell {
+    padding-right: 1.5rem;
+  }
+
+  .targetCellLink {
+    max-width: 28rem;
+  }
+
+  .linkCell {
+    padding-left: 1.5rem;
+  }
+
+  .actionsCol {
+    padding-right: 1.5rem;
+  }
+
+  .linkCol {
+    padding-left: 1.5rem;
+  }
+}

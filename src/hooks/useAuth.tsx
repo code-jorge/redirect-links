@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import * as api from '../lib/auth';
+import { useEffect } from 'react';
 
 interface AuthContextType {
   auth: boolean;
@@ -13,13 +14,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode })=> {
 
   const [auth, setAuth] = useState<boolean>(false);
 
-  async function login(password: string) {
+  useEffect(()=> {
+    const token = api.getToken();
+    if (token) setAuth(true);
+  }, []);
+
+  const login = async (password: string)=> {
     const token = await api.login(password);
     localStorage.setItem('token', token);
     setAuth(true);
   }
 
-  async function logout() {
+  const logout = async ()=> {
     localStorage.removeItem('token');
     setAuth(false);
   }

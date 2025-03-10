@@ -4,5 +4,9 @@ export const login = async (password: string)=> {
     body: JSON.stringify({ password }),
   });
   if (!response.ok) throw new Error('Login failed');
-  return response.json();
+  return response.text();
+}
+
+export const getToken = (): string=> {
+  return localStorage.getItem('token') || '';
 }
