@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { getBaseURL } from '../../lib/links';
+import React, { useState, useEffect, useCallback } from 'react';
+import { getBaseURL, checkShortCodeExists } from '../../lib/links';
 import css from './CreateLinkModal.module.css';
 
 interface CreateLinkModalProps {
@@ -16,6 +16,31 @@ const CreateLinkModal = ({
   const [targetUrl, setTargetUrl] = useState('');
   const [shortCode, setShortCode] = useState('');
   const [error, setError] = useState('');
+  const [warning, setWarning] = useState('');
+
+  const checkDuplicate = useCallback(async (code: string) => {
+    if (!code) {
+      setWarning('');
+      return;
+    }
+    try {
+      const exists = await checkShortCodeExists(code);
+      if (exists) {
+        setWarning('Este código corto ya existe. Si continúas, se sobrescribirá el enlace existente.');
+      } else {
+        setWarning('');
+      }
+    } catch {
+      setWarning('');
+    }
+  }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      checkDuplicate(shortCode);
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [shortCode, checkDuplicate]);
 
   if (!isOpen) return null;
 
@@ -32,6 +57,7 @@ const CreateLinkModal = ({
       await onCreate(targetUrl, shortCode);
       setTargetUrl('');
       setShortCode('');
+      setWarning('');
       onClose();
     } catch (err) {
       setError('Error al crear el código.');
@@ -86,6 +112,11 @@ const CreateLinkModal = ({
                     placeholder="codigo"
                   />
                 </div>
+                {warning && (
+                  <div className={css.warning}>
+                    {warning}
+                  </div>
+                )}
               </div>
             </div>
           </div>

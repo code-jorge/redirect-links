@@ -20,30 +20,30 @@ const DeleteLinkModal = ({
     <div className={css.backdrop}>
       <div className={css.modal}>
         <div className={css.header}>
-          <h3 className={css.title}>Delete Link</h3>
+          <h3 className={css.title}>Borrar enlace</h3>
         </div>
         <div className={css.content}>
           {link ? (
             <p>
-              Are you sure you want to delete <strong>{getBaseURL()}/r/{link.shortCode}</strong>?
-              This action cannot be undone.
+              ¿Estás seguro de que deseas borrar <strong>{getBaseURL()}/r/{link.shortCode}</strong>?
+              Esta acción no se puede deshacer.
             </p>
           ) : (
             <p>
-              Are you sure you want to delete this link? This action cannot be undone.
+              ¿Estás seguro de que deseas borrar este enlace? Esta acción no se puede deshacer.
             </p>
           )}
         </div>
         <div className={css.footer}>
           <button onClick={onClose} className={css.buttonSecondary}>
-            Cancel
+            Cancelar
           </button>
           <button
             disabled={!link}
-            onClick={()=> onConfirm(link?.id || '')} 
+            onClick={()=> onConfirm(link?.id || '')}
             className={css.buttonDanger}
           >
-            Delete
+            Borrar
           </button>
         </div>
       </div>
