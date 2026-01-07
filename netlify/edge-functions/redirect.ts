@@ -3,7 +3,7 @@ import { getStore } from '@netlify/blobs';
 
 
 const redirect = async (request: Request, context: Context)=> {
-  const store = getStore('links');
+  const store = getStore({ name: 'links', consistency: 'strong' });
   const url = new URL(request.url);
   const shortCode = url.pathname.slice(3);
   if (!shortCode) {

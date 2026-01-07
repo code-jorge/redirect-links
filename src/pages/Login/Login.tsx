@@ -23,7 +23,7 @@ const Login = ()=> {
       navigate('/admin');
     } catch (err) {
       console.log(err);
-      setError('Invalid email or password');
+      setError('Contraseña incorrecta');
     }
   }
 

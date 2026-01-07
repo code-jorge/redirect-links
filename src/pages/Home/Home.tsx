@@ -8,9 +8,9 @@ const Home = ()=> (
       <div className={css.messageContainer}>
         <h1 className={css.title}>Jorgenlaces</h1>
         <p className={css.description}>
-          Not sure what to do? Check out{' '}
+          ¿No sabes qué hacer? Visita{' '}
           <a className={css.link} href="https://jorge.aguirre.sexy">
-            my website
+            mi sitio web
           </a>
         </p>
       </div>

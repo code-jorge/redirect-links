@@ -25,7 +25,7 @@ const SmallLinksTable = ({ links=[] }: SmallLinksTableProps)=> {
   return (
     <div className={css.main}>
       <div className={css.title}>
-        <h2 className={css.titleText}>Links</h2>
+        <h2 className={css.titleText}>Enlaces</h2>
       </div>
       <ul className={css.list}>
         {links.map((link) => (
