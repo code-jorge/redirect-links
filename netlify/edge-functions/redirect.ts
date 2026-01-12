@@ -16,7 +16,7 @@ const redirect = async (request: Request, context: Context)=> {
     return response;
   }
   const { targetUrl } = JSON.parse(link);
-  return new Response(targetUrl, { status: 302, headers: { Location: targetUrl } });
+  return new Response(null, { status: 302, headers: { Location: targetUrl } });
 }
 
 export default redirect;

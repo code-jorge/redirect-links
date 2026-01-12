@@ -17,7 +17,7 @@ const AdminLayout = ()=> {
                 <h1 className={css.title}>Jorgenlaces</h1>
               </div>
               <div className={css.userSection}>
-                <button onClick={logout} className={css.logoutButton}>
+                <button onClick={logout} className={css.logoutButton} aria-label="Cerrar sesión">
                   <LogOut className={css.logoutIcon} />
                 </button>
               </div>

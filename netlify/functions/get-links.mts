@@ -1,11 +1,9 @@
-import { getStore } from '@netlify/blobs';
-
-const TOKEN = process.env.TOKEN;
+import { getLinksStore, validateAuth, jsonResponse } from './lib/auth.ts';
 
 const read = async (req: Request)=> {
-  const store = getStore({ name: 'links', consistency: 'strong' });
-  const token = req.headers.get('Authorization');
-  if (token !== TOKEN) return new Response('Unauthorized', { status: 401 });
+  const authError = validateAuth(req);
+  if (authError) return authError;
+  const store = getLinksStore();
   const links = await store.list();
   const linkData = await Promise.all(
     links.blobs.map(async ({ key }) => {
@@ -13,7 +11,7 @@ const read = async (req: Request)=> {
       return JSON.parse(data || '{}');
     })
   );
-  return new Response(JSON.stringify(linkData), { status: 200 });
+  return jsonResponse(linkData);
 }
 
 export default read;

@@ -96,9 +96,14 @@
   margin-left: .25rem;
 }
 
+.codeInputWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .prefix {
-  margin-right: 0.25rem; 
-  color: var(--color-gray); 
+  margin-right: 0.25rem;
+  color: var(--color-gray);
 }
 
 .footer {

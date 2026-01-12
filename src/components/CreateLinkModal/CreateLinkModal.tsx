@@ -42,9 +42,23 @@ const CreateLinkModal = ({
     return () => clearTimeout(timeoutId);
   }, [shortCode, checkDuplicate]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setTargetUrl('');
+      setShortCode('');
+      setError('');
+      setWarning('');
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  async function handleSubmit(e: React.FormEvent) {
+  const handleShortCodeChange = (value: string)=> {
+    const sanitized = value.replace(/[^a-zA-Z0-9-]/g, '');
+    setShortCode(sanitized);
+  }
+
+  const handleSubmit = async (e: React.FormEvent)=> {
     e.preventDefault();
     setError('');
 
@@ -55,11 +69,8 @@ const CreateLinkModal = ({
 
     try {
       await onCreate(targetUrl, shortCode);
-      setTargetUrl('');
-      setShortCode('');
-      setWarning('');
       onClose();
-    } catch (err) {
+    } catch {
       setError('Error al crear el código.');
     }
   }
@@ -101,15 +112,17 @@ const CreateLinkModal = ({
                 >
                   Código corto
                 </label>
-                <div className="flex items-center">
+                <div className={css.codeInputWrapper}>
                   <span className={css.prefix}>{getBaseURL()}/r/</span>
                   <input
                     type="text"
                     id="shortCode"
                     value={shortCode}
-                    onChange={(e) => setShortCode(e.target.value)}
+                    onChange={(e) => handleShortCodeChange(e.target.value)}
                     className={css.codeInput}
                     placeholder="codigo"
+                    pattern="[a-zA-Z0-9-]+"
+                    title="Solo letras, números y guiones"
                   />
                 </div>
                 {warning && (

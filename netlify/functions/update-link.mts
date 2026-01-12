@@ -1,17 +1,18 @@
-import { getStore } from "@netlify/blobs";
-
-const TOKEN = process.env.TOKEN;
+import { getLinksStore, validateAuth, isValidUrl, jsonResponse } from './lib/auth.ts';
 
 const update = async (req: Request)=> {
-  const store = getStore({ name: 'links', consistency: 'strong' });
-  const token = req.headers.get('Authorization');
-  if (token !== TOKEN) return new Response('Unauthorized', { status: 401 });
+  const authError = validateAuth(req);
+  if (authError) return authError;
+  const store = getLinksStore();
   const { id, targetUrl } = await req.json();
+  if (!targetUrl || !isValidUrl(targetUrl)) {
+    return jsonResponse({ error: 'Invalid URL' }, 400);
+  }
   const link = await store.get(`link:${id}`);
-  if (!link) return new Response('Not Found', { status: 404 });
+  if (!link) return jsonResponse({ error: 'Not Found' }, 404);
   const updatedLink = { ...JSON.parse(link), targetUrl };
   await store.set(`link:${id}`, JSON.stringify(updatedLink));
-  return new Response(JSON.stringify(updatedLink), { status: 200 });
+  return jsonResponse(updatedLink);
 }
 
 export default update;
