@@ -1,13 +1,14 @@
-import { getStore } from '@netlify/blobs';
 import { nanoid } from 'nanoid';
-
-const TOKEN = process.env.TOKEN;
+import { getLinksStore, validateAuth, isValidUrl, jsonResponse } from './lib/auth.ts';
 
 const create = async (req: Request)=> {
-  const store = getStore({ name: 'links', consistency: 'strong' });
-  const token = req.headers.get('Authorization');
-  if (token !== TOKEN) return new Response('Unauthorized', { status: 401 });
+  const authError = validateAuth(req);
+  if (authError) return authError;
+  const store = getLinksStore();
   const { targetUrl, shortCode } = await req.json();
+  if (!targetUrl || !isValidUrl(targetUrl)) {
+    return jsonResponse({ error: 'Invalid URL' }, 400);
+  }
   const code = shortCode || nanoid(6);
   const link = {
     id: code,
@@ -16,7 +17,7 @@ const create = async (req: Request)=> {
     createdAt: new Date().toISOString()
   };
   await store.set(`link:${code}`, JSON.stringify(link));
-  return new Response(JSON.stringify(link), { status: 201 });
+  return jsonResponse(link, 201);
 }
 
 export default create;

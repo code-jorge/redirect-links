@@ -8,7 +8,7 @@ export const getBaseURL = (): string=> {
 export const createLink = async (targetUrl: string, shortCode: string = ''): Promise<ShortLink> => {
   const response = await fetch('/api/links', {
     method: 'POST',
-    headers: { 'Authorization': getToken() },
+    headers: { 'Authorization': getToken(), 'Content-Type': 'application/json' },
     body: JSON.stringify({ targetUrl, shortCode }),
   });
   if (!response.ok) throw new Error('Failed to create link');
@@ -26,7 +26,7 @@ export const getLinks = async (): Promise<ShortLink[]> => {
 export const updateLink = async (id: string, targetUrl: string): Promise<ShortLink> => {
   const response = await fetch('/api/links', {
     method: 'PUT',
-    headers: { 'Authorization': getToken() },
+    headers: { 'Authorization': getToken(), 'Content-Type': 'application/json' },
     body: JSON.stringify({ id, targetUrl }),
   });
 
@@ -37,17 +37,16 @@ export const updateLink = async (id: string, targetUrl: string): Promise<ShortLi
 export const deleteLink = async (id: string): Promise<void> => {
   const response = await fetch('/api/links', {
     method: 'DELETE',
-    headers: { 'Authorization': getToken() },
+    headers: { 'Authorization': getToken(), 'Content-Type': 'application/json' },
     body: JSON.stringify({ id }),
   });
   if (!response.ok) throw new Error('Failed to delete link');
-  return Promise.resolve();
 }
 
 export const checkShortCodeExists = async (shortCode: string): Promise<boolean> => {
   const response = await fetch('/api/links/check', {
     method: 'POST',
-    headers: { 'Authorization': getToken() },
+    headers: { 'Authorization': getToken(), 'Content-Type': 'application/json' },
     body: JSON.stringify({ shortCode }),
   });
   if (!response.ok) throw new Error('Failed to check link');

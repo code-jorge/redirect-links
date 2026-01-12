@@ -10,7 +10,7 @@ const Home = ()=> (
         <p className={css.description}>
           ¿No sabes qué hacer? Visita{' '}
           <a className={css.link} href="https://jorge.aguirre.sexy">
-            mi sitio web
+            mi página web
           </a>
         </p>
       </div>

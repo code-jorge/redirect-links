@@ -3,5 +3,4 @@ export interface ShortLink {
   shortCode: string;
   targetUrl: string;
   createdAt: string;
-  userId: string;
 }

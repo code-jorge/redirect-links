@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Pencil, Trash2, Save, X, Copy, Check } from 'lucide-react';
 import { getBaseURL } from '../../lib/links';
+import { copyToClipboard } from '../../lib/clipboard';
 import type { ShortLink } from '../../types';
 import { formatDate } from '../../lib/date';
 import css from './LargeLinksTable.module.css';
@@ -17,13 +18,11 @@ const LargeLinksTable = ({ links=[], onUpdate, onDelete }: LargeLinksTableProps)
   const [editUrl, setEditUrl] = useState<string>('');
   const [copiedId, setCopiedId] = useState<string>('');
 
-  const copyToClipboard = async (shortCode: string, id: string)=> {
-    try {
-      await navigator.clipboard.writeText(`${getBaseURL()}/r/${shortCode}`);
+  const handleCopy = async (shortCode: string, id: string)=> {
+    const success = await copyToClipboard(`${getBaseURL()}/r/${shortCode}`);
+    if (success) {
       setCopiedId(id);
       setTimeout(() => setCopiedId(''), 2000);
-    } catch (error) {
-      console.error('Failed to copy:', error);
     }
   }
 
@@ -62,9 +61,9 @@ const LargeLinksTable = ({ links=[], onUpdate, onDelete }: LargeLinksTableProps)
                   {getBaseURL()}/r/{link.shortCode}
                 </a>
                 <button
-                  onClick={() => copyToClipboard(link.shortCode, link.id)}
+                  onClick={() => handleCopy(link.shortCode, link.id)}
                   className={css.linkCellCopy}
-                  title="Copiar enlace"
+                  aria-label="Copiar enlace"
                 >
                   {copiedId === link.id ? (
                     <Check className={css.successIcon} />
@@ -102,14 +101,14 @@ const LargeLinksTable = ({ links=[], onUpdate, onDelete }: LargeLinksTableProps)
                   <button
                     onClick={handleUpdate}
                     className={css.actionEdit}
-                    title="Guardar"
+                    aria-label="Guardar"
                   >
                     <Save className={css.icon} />
                   </button>
                   <button
                     onClick={() => setEditingId('')}
                     className={css.actionCancel}
-                    title="Cancelar"
+                    aria-label="Cancelar"
                   >
                     <X className={css.icon} />
                   </button>
@@ -122,14 +121,14 @@ const LargeLinksTable = ({ links=[], onUpdate, onDelete }: LargeLinksTableProps)
                       setEditUrl(link.targetUrl);
                     }}
                     className={css.actionEdit}
-                    title="Editar"
+                    aria-label="Editar"
                   >
                     <Pencil className={css.icon} />
                   </button>
                   <button
                     onClick={() => onDelete(link.id)}
                     className={css.actionDelete}
-                    title="Borrar"
+                    aria-label="Borrar"
                   >
                     <Trash2 className={css.icon} />
                   </button>

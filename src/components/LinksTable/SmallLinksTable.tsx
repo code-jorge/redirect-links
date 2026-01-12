@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ShortLink } from "../../types";
 import css from "./SmallLinksTable.module.css";
 import { getBaseURL } from "../../lib/links";
+import { copyToClipboard } from "../../lib/clipboard";
 import { Check, Copy } from "lucide-react";
 
 interface SmallLinksTableProps {
@@ -12,13 +13,11 @@ const SmallLinksTable = ({ links=[] }: SmallLinksTableProps)=> {
 
   const [copiedId, setCopiedId] = useState<string>('');
 
-  const copyToClipboard = async (shortCode: string, id: string)=> {
-    try {
-      await navigator.clipboard.writeText(`${getBaseURL()}/r/${shortCode}`);
+  const handleCopy = async (shortCode: string, id: string)=> {
+    const success = await copyToClipboard(`${getBaseURL()}/r/${shortCode}`);
+    if (success) {
       setCopiedId(id);
       setTimeout(() => setCopiedId(''), 2000);
-    } catch (error) {
-      console.error('Failed to copy:', error);
     }
   }
 
@@ -40,9 +39,9 @@ const SmallLinksTable = ({ links=[] }: SmallLinksTableProps)=> {
                 {getBaseURL()}/r/{link.shortCode}
               </a>
               <button
-                onClick={() => copyToClipboard(link.shortCode, link.id)}
+                onClick={() => handleCopy(link.shortCode, link.id)}
                 className={css.copy}
-                title="Copiar enlace"
+                aria-label="Copiar enlace"
               >
                 {copiedId === link.id ? (
                   <Check className={css.successIcon} />
